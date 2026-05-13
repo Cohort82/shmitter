@@ -11,8 +11,8 @@ function App() {
     });
 
     const [stats, setStats] = useState({
-        followers: 42,
-        following: 10
+        followers: 0,
+        following: 0
     });
 
     const changeAvatar = url => {
@@ -27,11 +27,16 @@ function App() {
         setUser(prevState => ({...prevState, name: name || prevState.name}));
     }
 
+    const changeStats = (statsType, sum) => {
+        const res = stats[statsType] + sum;
+        setStats(prevState => ({...prevState, [statsType]: res < 0 ? 0 : res}));
+    }
+
 
     return (
         <div className={'app'}>
             <ShmitterContext value={{
-                user, stats, changeAvatar, changeName
+                user, stats, changeAvatar, changeName, changeStats
             }}>
                 <Navigation/>
                 <Body/>
